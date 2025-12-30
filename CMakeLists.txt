@@ -53,6 +53,11 @@ juce_add_plugin(${PROJECT_NAME}
         PRODUCT_NAME "PluginTemplate"
 )
 
+target_compile_options(${PROJECT_NAME} PRIVATE
+        $<$<CXX_COMPILER_ID:MSVC>:/W4> # Windows (High warnings), add /WX if you want to treat warnings as errors
+        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wshadow -Wpedantic> # Mac/Linux (Strict), add -Werror if you want to treat warnings as errors
+)
+
 # How we want our SourceFiles to appear in our IDE
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SourceFiles})
 
